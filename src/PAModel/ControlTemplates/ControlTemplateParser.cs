@@ -59,7 +59,11 @@ internal class ControlTemplateParser
             if (template.Id == "http://microsoft.com/appmagic/gallery" && !TryParseNestedWidgets(templateStore, widget, type, loadedTemplates))
                 return false;
 
-            loadedTemplates.Add(name, template);
+            if (!loadedTemplates.ContainsKey(name))
+            {
+                loadedTemplates.Add(name, template);
+            }
+            
             if (!templateStore.TryGetTemplate(name, out _))
             {
                 templateStore.AddTemplate(name, new CombinedTemplateState()
